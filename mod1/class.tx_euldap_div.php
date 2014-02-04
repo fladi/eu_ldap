@@ -215,7 +215,7 @@ class tx_euldap_div {
                         $attrs = ldap_get_attributes($resource, $entry_id);
                         
                         # Iterate over the attributes
-                              while (list($attr, $values) = each($attrs)) { 
+                              while (list($attr, $values) = each($attrs)) {
                                     # Get the number of values for this attribute
                                     $count = $values['count'];
 
@@ -714,7 +714,7 @@ class tx_euldap_div {
 			} else {
 				$updateArray = array('tstamp' => time(),
 					'email' => $GLOBALS['TYPO3_DB']->quoteStr($email, $user_table),
-					'realname' => $GLOBALS['TYPO3_DB']->quoteStr($name, $user_table)
+					'realname' => $GLOBALS['TYPO3_DB']->quoteStr($name ? $name : '', $user_table)
 				);
 				if ($ldapbuildgroup || $use_memberOf) $updateArray['usergroup'] = $gid;
 			}
@@ -868,7 +868,7 @@ class tx_euldap_div {
 						$insValues['name'] = $name;
 					} else {
 						$insValues['options'] = '3';
-						$insValues['realname'] = $name;
+						$insValues['realname'] = $name ? $name : '';
 						$insValues['fileoper_perms'] = '1';
 					}
 					$mapArray = tx_euldap_div::additional_fields($map_additional_fields, $user, $user_table);
